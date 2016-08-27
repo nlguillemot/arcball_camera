@@ -10,7 +10,7 @@ Just call `arcball_camera_update` once per frame.
 
 Below is a fully-functional example program that works using OpenGL.
 
-Creaet a new Visual Studio project, drop this file in it, and it should just work.
+Create a new Visual Studio project, drop this file in it, and it should just work.
 
 ```
 #define ARCBALL_CAMERA_IMPLEMENTATION

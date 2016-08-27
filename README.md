@@ -6,7 +6,7 @@ Just call `arcball_camera_update` once per frame.
 
 # OpenGL Example
 
-![openglexample](blob:http://imgur.com/bc17d6ab-b832-44dd-8551-43a6f493b399)
+![openglexample](http://i.imgur.com/DOX9gBX.gif)
 
 Below is a fully-functional example program that works using OpenGL.
 

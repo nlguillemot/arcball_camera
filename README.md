@@ -24,7 +24,7 @@ Creaet a new Visual Studio project, drop this file in it, and it should just wor
 #pragma comment(lib, "OpenGL32.lib")
 #pragma comment(lib, "glu32.lib")
 
-int g_mouse_delta;
+int g_wheel_delta;
 
 LRESULT CALLBACK MyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -33,7 +33,7 @@ LRESULT CALLBACK MyWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
     case WM_CLOSE:
         ExitProcess(0);
     case WM_MOUSEWHEEL:
-        g_mouse_delta += GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
+        g_wheel_delta += GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
         break;
     }
     
@@ -151,7 +151,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
             oldcursor.y, cursor.y,
             GetAsyncKeyState(VK_MBUTTON),
             GetAsyncKeyState(VK_RBUTTON),
-            g_mouse_delta,
+            g_wheel_delta,
             0);
 
         if (memcmp(oldview, view, sizeof(float) * 16) != 0)
@@ -193,7 +193,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         then = now;
         oldcursor = cursor;
 
-        g_mouse_delta = 0;
+        g_wheel_delta = 0;
     }
 
     return 0;

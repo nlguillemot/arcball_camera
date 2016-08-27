@@ -289,18 +289,25 @@ void arcball_camera_update(
         // vector from the target to the eye, which will be rotated according to the arcball's arc.
         float to_eye[3] = { eye[0] - target[0], eye[1] - target[1], eye[2] - target[2] };
 
+        // convert quaternion to matrix (note: row major)
+        float qmat[9] = {
+            (1.0f - 2.0f * qy * qy - 2.0f * qz * qz), 2.0f * (qx * qy + qw * qz), 2.0f * (qx * qz - qw * qy),
+            2.0f * (qx * qy - qw * qz), (1.0f - 2.0f * qx * qx - 2.0f * qz * qz), 2.0f * (qy * qz + qw * qx),
+            2.0f * (qx * qz + qw * qy), 2.0f * (qy * qz - qw * qx), (1.0f - 2.0f * qx * qx - 2.0f * qy * qy)
+        };
+
         // compute rotated vector
         float to_eye2[3] = {
-            to_eye[0] * (1.0f - 2.0f * qy * qy - 2.0f * qz * qz) + to_eye[1] * 2.0f * (qx * qy + qw * qz) + to_eye[2] * 2.0f * (qx * qz - qw * qy),
-            to_eye[0] * 2.0f * (qx * qy - qw * qz) + to_eye[1] * (1.0f - 2.0f * qx * qx - 2.0f * qz * qz) + to_eye[2] * 2.0f * (qy * qz + qw * qx),
-            to_eye[0] * 2.0f * (qx * qz + qw * qy) + to_eye[1] * 2.0f * (qy * qz - qw * qx) + to_eye[2] * (1.0f - 2.0f * qx * qx - 2.0f * qy * qy)
+            to_eye[0] * qmat[0] + to_eye[1] * qmat[1] + to_eye[2] * qmat[2],
+            to_eye[0] * qmat[3] + to_eye[1] * qmat[4] + to_eye[2] * qmat[5],
+            to_eye[0] * qmat[6] + to_eye[1] * qmat[7] + to_eye[2] * qmat[8]
         };
 
         // compute rotated up vector
         float up2[3] = {
-            up[0] * (1.0f - 2.0f * qy * qy - 2.0f * qz * qz) + up[1] * 2.0f * (qx * qy + qw * qz) + up[2] * 2.0f * (qx * qz - qw * qy),
-            up[0] * 2.0f * (qx * qy - qw * qz) + up[1] * (1.0f - 2.0f * qx * qx - 2.0f * qz * qz) + up[2] * 2.0f * (qy * qz + qw * qx),
-            up[0] * 2.0f * (qx * qz + qw * qy) + up[1] * 2.0f * (qy * qz - qw * qx) + up[2] * (1.0f - 2.0f * qx * qx - 2.0f * qy * qy)
+            up[0] * qmat[0] + up[1] * qmat[1] + up[2] * qmat[2],
+            up[0] * qmat[3] + up[1] * qmat[4] + up[2] * qmat[5],
+            up[0] * qmat[6] + up[1] * qmat[7] + up[2] * qmat[8]
         };
 
         float up2_len = sqrtf(up2[0] * up2[0] + up2[1] * up2[1] + up2[2] * up2[2]);

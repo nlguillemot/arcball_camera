@@ -239,6 +239,7 @@ void arcball_camera_update(
 
         // amplify the quaternion's rotation by the multiplier
         // this is done by slerp(Quaternion.identity, q, multiplier)
+        // math from http://number-none.com/product/Understanding%20Slerp,%20Then%20Not%20Using%20It/
         {
             // cos(angle) of the quaternion
             float c = qw;

@@ -407,7 +407,8 @@ end_rotate:
 
     if (rclick_held)
     {
-        // affect target too if panning
+        // affect target too if right click is held
+        // this allows you to move forward and backward (as opposed to zoom)
         target[0] += eye_zoom[0];
         target[1] += eye_zoom[1];
         target[2] += eye_zoom[2];
